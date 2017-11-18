@@ -1,0 +1,282 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Color mixer - la jmina skari</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<script type="text/javascript" src="http://chir.ag/projects/ntc/ntc.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
+
+	<style type="text/css">
+		.color { color: white }
+		.label.color:hover { text-decoration: underline; }
+
+		.color.white, .color.white:hover { background-color: white; color: black; }
+		.color.blue, .color.blue:hover { background-color: blue }
+		.color.brown, .color.brown:hover { background-color: brown }
+		.color.cyan, .color.cyan:hover { background-color: cyan; color: black; }
+		.color.green, .color.green:hover { background-color: lime }
+		.color.gray, .color.gray:hover { background-color: gray }
+		.color.orange, .color.orange:hover { background-color: orange }
+		.color.magenta, .color.magenta:hover { background-color: magenta }
+		.color.yellow, .color.yellow:hover { background-color: yellow; color: black; }
+		.color.black, .color.black:hover { background-color: black }
+		.color.red, .color.red:hover { background-color: red }
+		.color.purple, .color.purple:hover { background-color: purple }
+
+		.color.white:hover { color: gray; }
+		.color.blue:hover { color: gray; }
+		.color.brown:hover { color: gray; }
+		.color.cyan:hover { color: gray; }
+		.color.green:hover { color: gray; }
+		.color.gray:hover { color: white; }
+		.color.orange:hover { color: gray; }
+		.color.magenta:hover { color: gray; }
+		.color.yellow:hover {  color: gray; }
+		.color.black:hover { color: gray; }
+		.color.red:hover { color: gray; }
+		.color.purple:hover { color: gray; }
+
+		@keyframes white {
+			to {background-color: white}
+		}
+		@keyframes blue {
+			to {background-color: blue}
+		}
+		@keyframes brown {
+			to {background-color: brown}
+		}
+		@keyframes cyan {
+			to {background-color: cyan}
+		}
+		@keyframes green {
+			to {background-color: lime}
+		}
+		@keyframes gray {
+			to {background-color: gray}
+		}
+		@keyframes orange {
+			to {background-color: orange}
+		}
+		@keyframes magenta {
+			to {background-color: magenta}
+		}
+		@keyframes yellow {
+			to {background-color: yellow}
+		}
+		@keyframes black {
+			to {background-color: black}
+		}
+		@keyframes red {
+			to {background-color: red}
+		}
+		@keyframes purple {
+			to {background-color: purple}
+		}
+
+		.result-color,
+		.result-direct-color,
+		.result-vague-color {
+			height: 5em;
+			width: 5em;
+		}
+
+		.result-vague-color {
+			animation-duration: 1s;
+			animation-iteration-count: infinite;
+			animation-direction: alternate;
+		}
+
+		.color-table {
+			width: 100%;
+			/*width: 400px;*/
+		}
+
+		.color-table td {
+			width: 50%;
+		}
+
+		.color-table td:first-child,
+		.color-table td:last-child {
+			width: 25%;
+		}
+	</style>
+</head>
+<body class="container"><div class="col-sm-12">
+	<h1 class="text-center">Color mixer</h1>
+
+	<!-- <h3>tanru dividers</h3>
+	<div>
+		<a href="#" class="label color button white" title="x1 is white/very-light colored [color adjective].">blabi</a>
+		<a href="#" class="label color button blue" title="x1 is blue [color adjective].">blanu</a>
+	</div> -->
+	<table class="color-table text-center">
+		<thead>
+			<tr>
+				<th>Leftmost</th>
+				<th>Result</th>
+				<th>Rightmost</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td class="leftmost-color">&nbsp;</td>
+				<td class="result-color" title="Resulting direct color">
+					<span>Resulting direct color: <span class="result-rgb-color"></span></span>
+				</td>
+				<td class="rightmost-color">&nbsp;</td>
+			</tr>
+			<tr>
+				<td class="leftmost-color">&nbsp;</td>
+				<td class="result-vague-color" title="Resulting vague color">
+					<span>Resulting vague color: <span class="result-rgb-color"></span></span>
+				</td>
+				<td class="rightmost-color">&nbsp;</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th colspan="3">Append colors</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<a href="#" class="label color button badge red" data-color="red" data-color-hex="#ff0000" title="x1 is red/crimson/ruddy [color adjective].">xunre</a>
+					<a href="#" class="label color button badge brown" data-color="brown" data-color-hex="#805400" title="x1 is brown/tan [color adjective].">bunre</a>
+					<a href="#" class="label color button badge orange" data-color="orange" data-color-hex="#ff8000" title="x1 is orange [color adjective].">narju</a>
+					<a href="#" class="label color button badge yellow" data-color="yellow" data-color-hex="#ffff00" title="x1 is yellow/golden [color adjective].">pelxu</a>
+					<a href="#" class="label color button badge green" data-color="green" data-color-hex="#00ff00" title="x1 is green/verdant [color adjective].">crino</a>
+					<a href="#" class="label color button badge cyan" data-color="cyan" data-color-hex="#00ffff" title="x1 is cyan/turquoise/greenish-blue [color adjective].">cicna</a>
+					<a href="#" class="label color button badge blue" data-color="blue" data-color-hex="#0000ff" title="x1 is blue [color adjective].">blanu</a>
+					<a href="#" class="label color button badge magenta" data-color="magenta" data-color-hex="#ff00ff" title="x1 is magenta/fuchsia/purplish-red [color adjective].">nukni</a>
+					<a href="#" class="label color button badge purple" data-color="purple" data-color-hex="#800080" title="x1 is purple/violet [color adjective].">zirpu</a><br />
+					<a href="#" class="label color button badge white" data-color="white" data-color-hex="#ffffff" title="x1 is white/very-light colored [color adjective].">blabi</a>
+					<a href="#" class="label color button badge gray" data-color="gray" data-color-hex="#808080" title="x1 is gray [color adjective].">grusi</a>
+					<a href="#" class="label color button badge black" data-color="black" data-color-hex="#000000" title="x1 is black/extremely dark-colored [color adjective].">xekri</a>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="3">Resulting tanru</td>
+			</tr>
+			<tr>
+				<td colspan="3" class="tanru"></td>
+			</tr>
+			<tr>
+				<th colspan="3">English color name</td>
+			</tr>
+			<tr>
+				<td colspan="3" class="eng-color-name"></td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+	<script type="text/javascript">
+		// var colors = [];
+		// var minJColor;
+		// var maxJColor;
+
+		$('.label.color').on('click', function(e){
+			e.preventDefault();
+
+			if ($('.tanru').html() !== '')
+			{
+				$('.tanru').append('<span> => </span>');
+			}
+			// appendTo
+			var newLabel = $(this).clone().appendTo($('.tanru'));
+			// colors.push($(this).data('color'));
+			recalculateColor();
+
+			newLabel.on('click', function(e){
+				e.preventDefault();
+
+				if ($(this).index() == 0)
+				{
+					$(this).next('span').detach();
+				}
+				else
+				{
+					$(this).prev('span').detach();
+				}
+
+				$(this).detach();
+				recalculateColor();
+
+				$(this).off('click');
+			});
+			return false;
+		});
+
+		recalculateColor = function() {
+			var jColor;
+			var jColors = [];
+			var colorLabels = $('.tanru .color');
+			var rgbStr;
+
+			if(colorLabels.length === 0)
+			{
+				return;
+			}
+
+			$('.leftmost-color').css('background-color', $(colorLabels[0]).css('background-color'));
+			$('.rightmost-color').css('background-color', $(colorLabels[colorLabels.length - 1]).css('background-color'));
+
+			colorLabels.each(function() {
+				jColors.push($.Color($(this).data('color-hex')));
+
+				// if this is the last color, have it animate the background toward it
+				if(colorLabels.length === jColors.length)
+				{
+					$('.result-vague-color').css('animation-name', $(this).data('color'));
+				}
+			});
+
+			jColors.reverse();
+			jColor = null;
+			for (var i = jColors.length - 1; i >= 0; i--) {
+				// Ignore duplicates
+				if(jColor === jColors[i])
+				{
+					continue;
+				}
+
+				if (jColor == null)
+				{
+					jColor = jColors[i];
+				}
+				else
+				{
+					// minJColor = jColor.transition(jColors[i], 0.1);
+					// maxJColor = jColor.transition(jColors[i], 0.5);
+
+					// >0.5 as the final color is the most important due to left-to-right notation
+					jColor = jColor.transition(jColors[i], 0.66);
+				}
+			}
+
+			rgbStr = jColor.toRgbaString();
+
+			$('.result-rgb-color').html(rgbStr);
+			$('.result-color, .result-vague-color').css('background-color', rgbStr);
+
+			var n_match  = ntc.name(jColor.toHexString());
+			$('.eng-color-name').text(n_match[1]);
+		};
+	</script>
+<div style='text-align: right;position: fixed;z-index:9999999;bottom: 0; width: 100%;cursor: pointer;line-height: 0;'><a title="Hosted on free web hosting 000webhost.com. Host your own website for FREE." target="_blank" href="https://www.000webhost.com/?utm_source=000webhostapp&utm_campaign=000_logo&utm_medium=website_salubrious-filters&utm_content=footer_img"><img src="https://cloud.githubusercontent.com/assets/23024110/20663010/9968df22-b55e-11e6-941d-edbc894c2b78.png"  alt="www.000webhost.com"></a></div></body>
+</html>
