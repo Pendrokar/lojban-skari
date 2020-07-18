@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html>
+<html ng-app="colorMixer">
 <head>
 	<title>Color mixer - la jmina skari</title>
 
@@ -10,7 +10,11 @@
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
+	<link rel="stylesheet" href="./css/style.css">
+
 	<script type="text/javascript" src="./js/ntc.js"></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
 
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 
@@ -22,111 +26,12 @@
 
 	<script src="https://code.jquery.com/color/jquery.color-2.1.2.min.js"></script>
 
-	<style type="text/css">
-		.color { color: white }
-		.label.color:hover { text-decoration: underline; }
-
-		.color.white, .color.white:hover { background-color: white; color: black; }
-		.color.blue, .color.blue:hover { background-color: blue }
-		.color.brown, .color.brown:hover { background-color: brown }
-		.color.cyan, .color.cyan:hover { background-color: cyan; color: black; }
-		.color.green, .color.green:hover { background-color: lime }
-		.color.gray, .color.gray:hover { background-color: gray }
-		.color.orange, .color.orange:hover { background-color: orange }
-		.color.magenta, .color.magenta:hover { background-color: magenta }
-		.color.yellow, .color.yellow:hover { background-color: yellow; color: black; }
-		.color.black, .color.black:hover { background-color: black }
-		.color.red, .color.red:hover { background-color: red }
-		.color.purple, .color.purple:hover { background-color: purple }
-
-		.color.white:hover { color: gray; }
-		.color.blue:hover { color: gray; }
-		.color.brown:hover { color: gray; }
-		.color.cyan:hover { color: gray; }
-		.color.green:hover { color: gray; }
-		.color.gray:hover { color: white; }
-		.color.orange:hover { color: gray; }
-		.color.magenta:hover { color: gray; }
-		.color.yellow:hover {  color: gray; }
-		.color.black:hover { color: gray; }
-		.color.red:hover { color: gray; }
-		.color.purple:hover { color: gray; }
-
-		@keyframes white {
-			to {background-color: white}
-		}
-		@keyframes blue {
-			to {background-color: blue}
-		}
-		@keyframes brown {
-			to {background-color: brown}
-		}
-		@keyframes cyan {
-			to {background-color: cyan}
-		}
-		@keyframes green {
-			to {background-color: lime}
-		}
-		@keyframes gray {
-			to {background-color: gray}
-		}
-		@keyframes orange {
-			to {background-color: orange}
-		}
-		@keyframes magenta {
-			to {background-color: magenta}
-		}
-		@keyframes yellow {
-			to {background-color: yellow}
-		}
-		@keyframes black {
-			to {background-color: black}
-		}
-		@keyframes red {
-			to {background-color: red}
-		}
-		@keyframes purple {
-			to {background-color: purple}
-		}
-
-		.tanru {
-			font-family: monospace;
-			font-size: 125%;
-		}
-
-		/*.result-color,
-		.result-direct-color,
-		.result-vague-color {
-			height: 5em;
-			width: 5em;
-		}*/
-
-		.result-vague-color {
-			animation-direction: alternate;
-			animation-duration: 1s;
-			animation-iteration-count: infinite;
-			animation-timing-function: ease-in-out;
-		}
-
-		.color-table {
-			width: 100%;
-			/*width: 400px;*/
-		}
-
-		/*.color-table td {
-			width: 50%;
-		}*/
-
-		.color-table td:first-child,
-		.color-table td:last-child {
-			width: 25%;
-		}
-	</style>
+	<script src="./js/main.js"></script>
 </head>
 <body class="container"><div class="col-sm-12">
 	<h1 class="text-center">Color mixer</h1>
 
-	<table class="color-table text-center">
+	<table class="color-table text-center" ng-controller="ColorMixerController as colorMix">
 		<thead>
 			<tr>
 				<th>Leftmost</th>
@@ -166,25 +71,16 @@
 			</tr>
 			<tr>
 				<td colspan="5">
-					<a href="#" class="label color button badge red" data-color="red" data-color-hex="#ff0000" title="x1 is red/crimson/ruddy [color adjective].">xunre</a>
-					<a href="#" class="label color button badge brown" data-color="brown" data-color-hex="#805400" title="x1 is brown/tan [color adjective].">bunre</a>
-					<a href="#" class="label color button badge orange" data-color="orange" data-color-hex="#ff8000" title="x1 is orange [color adjective].">narju</a>
-					<a href="#" class="label color button badge yellow" data-color="yellow" data-color-hex="#ffff00" title="x1 is yellow/golden [color adjective].">pelxu</a>
-					<a href="#" class="label color button badge green" data-color="green" data-color-hex="#00ff00" title="x1 is green/verdant [color adjective].">crino</a>
-					<a href="#" class="label color button badge cyan" data-color="cyan" data-color-hex="#00ffff" title="x1 is cyan/turquoise/greenish-blue [color adjective].">cicna</a>
-					<a href="#" class="label color button badge blue" data-color="blue" data-color-hex="#0000ff" title="x1 is blue [color adjective].">blanu</a>
-					<a href="#" class="label color button badge magenta" data-color="magenta" data-color-hex="#ff00ff" title="x1 is magenta/fuchsia/purplish-red [color adjective].">nukni</a>
-					<a href="#" class="label color button badge purple" data-color="purple" data-color-hex="#800080" title="x1 is purple/violet [color adjective].">zirpu</a><br />
-					<a href="#" class="label color button badge white" data-color="white" data-color-hex="#ffffff" title="x1 is white/very-light colored [color adjective].">blabi</a>
-					<a href="#" class="label color button badge gray" data-color="gray" data-color-hex="#808080" title="x1 is gray [color adjective].">grusi</a>
-					<a href="#" class="label color button badge black" data-color="black" data-color-hex="#000000" title="x1 is black/extremely dark-colored [color adjective].">xekri</a>
+					<a href="#" class="label color button badge {{ color.color }}" ng-click="colorMix.append(this)" data-color="{{ color.color }}" data-color-hex="{{ color.colorHex }}" title="{{ color.title }}" ng-repeat="color in colorMix.colors">{{ color.lojbanText }}</a>
 				</td>
 			</tr>
 			<tr>
 				<th colspan="5">Resulting tanru</td>
 			</tr>
 			<tr>
-				<td colspan="5" class="tanru">&nbsp;</td>
+				<td colspan="5" class="tanru">
+					<a href="#" class="label color button badge {{ color.color }}" ng-click="colorMix.remove(this)" data-color="{{ color.color }}" data-color-hex="{{ color.colorHex }}" title="{{ color.title }}" ng-repeat="color in colorMix.tanru track by $index">{{ color.lojbanText }}</a>
+				</td>
 			</tr>
 			<tr>
 				<td colspan="5">Names provided by <em>Chirag Mehta</em> of <strong>Name that Color</strong> JavaScript library project</td>
@@ -192,111 +88,5 @@
 		</tfoot>
 	</table>
 </div>
-
-	<script type="text/javascript">
-		// var colors = [];
-		// var minJColor;
-		// var maxJColor;
-
-		$('.label.color').on('click', function(e){
-			e.preventDefault();
-
-			if ($('.tanru .color').length > 0)
-			{
-				$('.tanru').append('<span> => </span>');
-			}
-			// appendTo
-			var newLabel = $(this).clone().appendTo($('.tanru'));
-			// colors.push($(this).data('color'));
-			recalculateColor();
-
-			newLabel.on('click', function(e){
-				e.preventDefault();
-
-				if ($(this).index() == 0)
-				{
-					$(this).next('span').detach();
-				}
-				else
-				{
-					$(this).prev('span').detach();
-				}
-
-				$(this).detach();
-				recalculateColor();
-
-				$(this).off('click');
-			});
-			return false;
-		});
-
-		recalculateColor = function() {
-			var jColors = [];
-			var colorLabels = $('.tanru .color');
-			var rgbStr;
-
-			if(colorLabels.length === 0)
-			{
-				return;
-			}
-			else
-			{
-
-			}
-
-			$('.leftmost-color').css('background-color', $(colorLabels[0]).css('background-color'));
-			$('.rightmost-color').css('background-color', $(colorLabels[colorLabels.length - 1]).css('background-color'));
-			$('.result-vague-color')
-				.css('animation-name', $(colorLabels[colorLabels.length - 1]).data('color'));
-
-			colorLabels.each(function() {
-				jColors.push($.Color($(this).data('color-hex')));
-
-				// if this is the last color, have it animate the background toward it
-				if(colorLabels.length === jColors.length)
-				{
-					$('.rightmost-rgb-color')
-						.text(jColors[jColors.length - 1].toRgbaString());
-
-					var n_match = ntc.name(jColors[jColors.length - 1].toHexString());
-					$('.rightmost-eng-color')
-						.text(n_match[1]);
-				}
-			});
-
-			jColors.reverse();
-			var jColor = null;
-			for (var i = jColors.length - 1; i >= 0; i--) {
-				// Ignore duplicates
-				if(jColor === jColors[i])
-				{
-					continue;
-				}
-
-				if (jColor == null)
-				{
-					jColor = jColors[i];
-				}
-				else
-				{
-					// minJColor = jColor.transition(jColors[i], 0.1);
-					// maxJColor = jColor.transition(jColors[i], 0.5);
-
-					// >0.5 as the final color is the most important due to left-to-right notation
-					jColor = jColor.transition(jColors[i], 0.66);
-				}
-			}
-
-			rgbStr = jColor.toRgbaString();
-
-			$('.result-rgb-color').html(rgbStr);
-			$('.result-color, .result-vague-color')
-				.css('background-color', rgbStr)
-				.css('color', jColor.lightness() > 0.5 ? 'black' : 'white');
-
-			var n_match = ntc.name(jColor.toHexString());
-			$('.result-eng-color').text(n_match[1]);
-		};
-	</script>
 </body>
 </html>
