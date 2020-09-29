@@ -1,78 +1,75 @@
-// var colors = [];
-// var minJColor;
-// var maxJColor;
 angular.module('colorMixer', [])
 	.controller('ColorMixerController', function() {
 		var colorMix = this;
 		colorMix.colors = {
 			red: {
-				color: 'red',
+				colorCss: 'red',
 				colorHex: '#ff0000',
 				title: 'x1 is red/crimson/ruddy [color adjective].',
 				lojbanText: 'xunre'
 			},
 			brown: {
-				color: 'brown',
+				colorCss: 'brown',
 				colorHex: '#805400',
 				title: 'x1 is brown/tan [color adjective].',
 				lojbanText: 'bunre'
 			},
 			orange: {
-				color: 'orange',
+				colorCss: 'orange',
 				colorHex: '#ff8000',
 				title: 'x1 is orange [color adjective].',
 				lojbanText: 'narju'
 			},
 			yellow: {
-				color: 'yellow',
+				colorCss: 'yellow',
 				colorHex: '#ffff00',
 				title: 'x1 is yellow/golden [color adjective].',
 				lojbanText: 'pelxu'
 			},
 			green: {
-				color: 'green',
+				colorCss: 'green',
 				colorHex: '#00ff00',
 				title: 'x1 is green/verdant [color adjective].',
 				lojbanText: 'crino'
 			},
 			cyan: {
-				color: 'cyan',
+				colorCss: 'cyan',
 				colorHex: '#00ffff',
 				title: 'x1 is cyan/turquoise/greenish-blue [color adjective].',
 				lojbanText: 'cicna'
 			},
 			blue: {
-				color: 'blue',
+				colorCss: 'blue',
 				colorHex: '#0000ff',
 				title: 'x1 is blue [color adjective].',
 				lojbanText: 'blanu'
 			},
 			magenta: {
-				color: 'magenta',
+				colorCss: 'magenta',
 				colorHex: '#ff00ff',
 				title: 'x1 is magenta/fuchsia/purplish-red [color adjective].',
 				lojbanText: 'nukni'
 			},
 			purple: {
-				color: 'purple',
+				colorCss: 'purple',
 				colorHex: '#800080',
 				title: 'x1 is purple/violet [color adjective].',
 				lojbanText: 'zirpu'
 			},
 			white: {
-				color: 'white',
+				colorCss: 'white',
 				colorHex: '#ffffff',
 				title: 'x1 is white/very-light colored [color adjective].',
 				lojbanText: 'blabi'
 			},
 			gray: {
-				color: 'gray',
+				colorCss: 'gray',
 				colorHex: '#808080',
 				title: 'x1 is gray [color adjective].',
 				lojbanText: 'grusi'
 			},
 			black: {
-				color: 'black',
+				colorCss: 'black',
 				colorHex: '#000000',
 				title: 'x1 is black/extremely dark-colored [color adjective].',
 				lojbanText: 'xekri'
@@ -82,131 +79,97 @@ angular.module('colorMixer', [])
 		colorMix.tanru = [
 		];
 
+		colorMix.result = {
+			leftmost: {
+				title: 'LeftmostTitle',
+				colorCss: ''
+			},
+			direct: {
+				title: 'DirectTitle',
+				colorCss: 'black',
+				hexColor: '#FFF',
+				rgbColor: ''
+			},
+			vague: {
+				title: 'VagueTitle',
+				hexColor: '#FFF',
+				colorCss: ''
+			},
+			rightmost: {
+				title: 'RightmostTitle',
+				colorCss: '',
+				rgbColor: ''
+			}
+		}
+
 		colorMix.append = function(e) {
-			// console.log(e);
 			colorMix.tanru.push(e.color);
 
-			// if ($('.tanru .color').length > 0)
-			// {
-			// 	$('.tanru').append('<span> => </span>');
-			// }
-			// // appendTo
-			// var newLabel = $(this).clone().appendTo($('.tanru'));
-			// // colors.push($(this).data('color'));
-			// recalculateColor();
-
-			// newLabel.on('click', function(e){
-			// 	e.preventDefault();
-
-			// 	if ($(this).index() == 0)
-			// 	{
-			// 		$(this).next('span').detach();
-			// 	}
-			// 	else
-			// 	{
-			// 		$(this).prev('span').detach();
-			// 	}
-
-			// 	$(this).detach();
-			// 	recalculateColor();
-
-			// 	$(this).off('click');
-			// });
+			recalculateColor();
 		};
 
 		colorMix.remove = function(e) {
-			delete colorMix.tanru[e.$index];
+			colorMix.tanru.splice(e.$index, 1);
+
+			recalculateColor();
 		}
 
-		// colorMix.remaining = function() {
-		// 	var count = 0;
-		// 	angular.forEach(colorMix.colors, function(todo) {
-		// 		count += todo.done ? 0 : 1;
-		// 	});
-		// 	return count;
-		// };
+		recalculateColor = function() {
+			// jQuery colors
+			var jColors = [];
+			var rgbStr;
+			if(colorMix.tanru.length === 0)
+			{
+				return;
+			}
 
-		// colorMix.archive = function() {
-		// 	var oldTodos = colorMix.colors;
-		// 	colorMix.colors = [];
-		// 	angular.forEach(oldTodos, function(todo) {
-		// 		if (!todo.done) colorMix.colors.push(todo);
-		// 	});
-		// };
+			let tanruKeys = Object.keys(colorMix.tanru);
+
+			// Set leftmost color
+			colorMix.result.leftmost.colorCss = colorMix.tanru[tanruKeys[0]].colorCss;
+			// Set rightmost color
+			colorMix.result.rightmost.colorCss = colorMix.tanru[tanruKeys.pop()].colorCss;
+			// Set vague color animation the same as the rightmost color
+			colorMix.result.vague.colorCss = colorMix.result.rightmost.colorCss;
+
+
+			// Iterate
+			for (let i in colorMix.tanru) {
+				let jColor = $.Color(colorMix.tanru[i].colorHex);
+				jColors.push(jColor);
+
+				colorMix.result.rightmost.rgbColor = jColor.toRgbaString();
+				colorMix.result.rightmost.title = ntc.name(jColor.toHexString())[1];
+			}
+
+			jColors.reverse();
+			let jColor = null;
+			for (var i = jColors.length - 1; i >= 0; i--) {
+				// Ignore duplicates
+				if(jColor === jColors[i])
+				{
+					continue;
+				}
+
+				if (jColor == null)
+				{
+					jColor = jColors[i];
+				}
+				else
+				{
+					// minJColor = jColor.transition(jColors[i], 0.1);
+					// maxJColor = jColor.transition(jColors[i], 0.5);
+
+					// >0.5 as the final color is the most important due to left-to-right notation
+					jColor = jColor.transition(jColors[i], 0.66);
+				}
+			}
+
+			rgbStr = jColor.toRgbaString();
+
+			colorMix.result.direct.rgbColor = rgbStr;
+			colorMix.result.direct.colorCss = (jColor.lightness() > 0.5) ? 'black' : 'white';
+			colorMix.result.direct.title = ntc.name(jColor.toHexString())[1];
+		};
 	})
 ;
-
-// $('.label.color').on('click', function(e){
-// 	e.preventDefault();
-
-
-// 	return false;
-// });
-
-// recalculateColor = function() {
-// 	var jColors = [];
-// 	var colorLabels = $('.tanru .color');
-// 	var rgbStr;
-
-// 	if(colorLabels.length === 0)
-// 	{
-// 		return;
-// 	}
-// 	else
-// 	{
-
-// 	}
-
-// 	$('.leftmost-color').css('background-color', $(colorLabels[0]).css('background-color'));
-// 	$('.rightmost-color').css('background-color', $(colorLabels[colorLabels.length - 1]).css('background-color'));
-// 	$('.result-vague-color')
-// 		.css('animation-name', $(colorLabels[colorLabels.length - 1]).data('color'));
-
-// 	colorLabels.each(function() {
-// 		jColors.push($.Color($(this).data('color-hex')));
-
-// 		// if this is the last color, have it animate the background toward it
-// 		if(colorLabels.length === jColors.length)
-// 		{
-// 			$('.rightmost-rgb-color')
-// 				.text(jColors[jColors.length - 1].toRgbaString());
-
-// 			var n_match = ntc.name(jColors[jColors.length - 1].toHexString());
-// 			$('.rightmost-eng-color')
-// 				.text(n_match[1]);
-// 		}
-// 	});
-
-// 	jColors.reverse();
-// 	var jColor = null;
-// 	for (var i = jColors.length - 1; i >= 0; i--) {
-// 		// Ignore duplicates
-// 		if(jColor === jColors[i])
-// 		{
-// 			continue;
-// 		}
-
-// 		if (jColor == null)
-// 		{
-// 			jColor = jColors[i];
-// 		}
-// 		else
-// 		{
-// 			// minJColor = jColor.transition(jColors[i], 0.1);
-// 			// maxJColor = jColor.transition(jColors[i], 0.5);
-
-// 			// >0.5 as the final color is the most important due to left-to-right notation
-// 			jColor = jColor.transition(jColors[i], 0.66);
-// 		}
-// 	}
-
-// 	rgbStr = jColor.toRgbaString();
-
-// 	$('.result-rgb-color').html(rgbStr);
-// 	$('.result-color, .result-vague-color')
-// 		.css('background-color', rgbStr)
-// 		.css('color', jColor.lightness() > 0.5 ? 'black' : 'white');
-
-// 	var n_match = ntc.name(jColor.toHexString());
-// 	$('.result-eng-color').text(n_match[1]);
-// };

@@ -18,8 +18,6 @@
 
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 
-	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -41,28 +39,111 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td class="leftmost-color" rowspan="4">&nbsp;</td>
-				<td class="result-color" colspan="3" title="Resulting direct color">
+				<td class="leftmost-color color {{ colorMix.result.leftmost.colorCss }}" rowspan="4">&nbsp;</td>
+				<td
+					class="result-color"
+					colspan="3"
+					title="Resulting direct color"
+					style="
+						color: {{ colorMix.result.direct.colorCss }};
+						background-color: {{ colorMix.result.direct.rgbColor }}
+					"
+				>
 					<span>
 						Direct<br />
-						<span class="result-rgb-color">rgba(0,0,0,0)</span><br />
-						<span class="result-eng-color">Transparent</span>
+						<span class="result-rgb-color">{{ colorMix.result.direct.rgbColor }}</span><br />
+						<span class="result-eng-color">{{ colorMix.result.direct.title }}</span>
 					</span>
 				</td>
-				<td class="rightmost-color" rowspan="4">&nbsp;</td>
+				<td class="rightmost-color color {{ colorMix.result.rightmost.colorCss }}" rowspan="4">&nbsp;</td>
 			</tr>
 			<tr>
-				<td class="result-vague-color" colspan="3" title="Resulting vague color">Vague</td>
+				<td
+					class="result-vague-color"
+					style="
+						animation-name: {{ colorMix.result.rightmost.colorCss }};
+						background-color: {{ colorMix.result.direct.rgbColor }};
+						color: {{ colorMix.result.direct.colorCss }};
+					"
+					colspan="3"
+					title="Resulting vague color"
+				>
+					Vague
+				</td>
 			</tr>
 			<tr>
-				<td class="result-vague-color text-right" title="Resulting vague color"><span class="result-rgb-color">rgba(0,0,0,0)</span></td>
-				<td class="result-vague-color" title="Resulting vague color">&lt;=&gt;</td>
-				<td class="result-vague-color text-left" title="Resulting vague color"><span class="rightmost-rgb-color">rgba(0,0,0,0)</span></td>
+				<td
+					class="result-vague-color text-right"
+					title="Resulting vague color"
+					style="
+						animation-name: {{ colorMix.result.rightmost.colorCss }};
+						background-color: {{ colorMix.result.direct.rgbColor }};
+						color: {{ colorMix.result.direct.colorCss }};
+					"
+				>
+					<span class="result-rgb-color">
+						{{ colorMix.result.direct.rgbColor }}
+					</span>
+				</td>
+				<td
+					class="result-vague-color"
+					title="Resulting vague color"
+					style="
+						animation-name: {{ colorMix.result.rightmost.colorCss }};
+						background-color: {{ colorMix.result.direct.rgbColor }};
+						color: {{ colorMix.result.direct.colorCss }};
+					"
+				>&lt;=&gt;</td>
+				<td
+					class="result-vague-color text-left"
+					title="Resulting vague color"
+					style="
+						animation-name: {{ colorMix.result.rightmost.colorCss }};
+						background-color: {{ colorMix.result.direct.rgbColor }};
+						color: {{ colorMix.result.direct.colorCss }};
+					"
+				>
+					<span class="rightmost-rgb-color">
+						{{ colorMix.result.rightmost.rgbColor }}
+					</span>
+				</td>
 			</tr>
 			<tr>
-				<td class="result-vague-color text-right" title="Resulting vague color"><span class="result-eng-color">Transparent</span></td>
-				<td class="result-vague-color" title="Resulting vague color">&lt;=&gt;</td>
-				<td class="result-vague-color text-left" title="Resulting vague color"><span class="rightmost-eng-color">Transparent</span></td>
+				<td
+					class="result-vague-color text-right"
+					title="Resulting vague color"
+					style="
+						animation-name: {{ colorMix.result.rightmost.colorCss }};
+						background-color: {{ colorMix.result.direct.rgbColor }};
+						color: {{ colorMix.result.direct.colorCss }};
+					"
+				>
+					<span class="result-eng-color">
+						{{ colorMix.result.direct.title }}
+					</span>
+				</td>
+				<td
+					class="result-vague-color"
+					title="Resulting vague color"
+					style="
+						animation-name: {{ colorMix.result.rightmost.colorCss }};
+						background-color: {{ colorMix.result.direct.rgbColor }};
+						color: {{ colorMix.result.direct.colorCss }};
+					"
+				>&lt;=&gt;</td>
+				<td
+					class="result-vague-color text-left"
+					title="Resulting vague color"
+					style="
+						animation-name: {{ colorMix.result.rightmost.colorCss }};
+						background-color: {{ colorMix.result.direct.rgbColor }};
+						color: {{ colorMix.result.direct.colorCss }};
+					"
+				>
+					<span class="rightmost-eng-color">
+						{{ colorMix.result.rightmost.title }}
+					</span>
+				</td>
 			</tr>
 		</tbody>
 		<tfoot>
@@ -71,7 +152,7 @@
 			</tr>
 			<tr>
 				<td colspan="5">
-					<a href="#" class="label color button badge {{ color.color }}" ng-click="colorMix.append(this)" data-color="{{ color.color }}" data-color-hex="{{ color.colorHex }}" title="{{ color.title }}" ng-repeat="color in colorMix.colors">{{ color.lojbanText }}</a>
+					<a href="#" class="label color button badge {{ color.colorCss }}" ng-click="colorMix.append(this)" data-color="{{ color.colorCss }}" data-color-hex="{{ color.colorHex }}" title="{{ color.title }}" ng-repeat="color in colorMix.colors">{{ color.lojbanText }}</a>
 				</td>
 			</tr>
 			<tr>
@@ -79,7 +160,7 @@
 			</tr>
 			<tr>
 				<td colspan="5" class="tanru">
-					<a href="#" class="label color button badge {{ color.color }}" ng-click="colorMix.remove(this)" data-color="{{ color.color }}" data-color-hex="{{ color.colorHex }}" title="{{ color.title }}" ng-repeat="color in colorMix.tanru track by $index">{{ color.lojbanText }}</a>
+					<a href="#" class="label color button badge {{ color.colorCss }}" ng-click="colorMix.remove(this)" data-color="{{ color.colorCss }}" data-color-hex="{{ color.colorHex }}" title="{{ color.title }}" ng-repeat="color in colorMix.tanru track by $index">{{ color.lojbanText }}</a>
 				</td>
 			</tr>
 			<tr>
