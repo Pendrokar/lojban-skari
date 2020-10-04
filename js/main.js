@@ -60,7 +60,8 @@ angular.module('colorMixer', [])
 				colorCss: 'white',
 				colorHex: '#ffffff',
 				title: 'x1 is white/very-light colored [color adjective].',
-				lojbanText: 'blabi'
+				lojbanText: 'blabi',
+				newline: true
 			},
 			gray: {
 				colorCss: 'gray',
@@ -81,22 +82,22 @@ angular.module('colorMixer', [])
 
 		colorMix.result = {
 			leftmost: {
-				title: 'LeftmostTitle',
+				title: 'White',
 				colorCss: ''
 			},
 			direct: {
-				title: 'DirectTitle',
+				title: 'White',
 				colorCss: 'black',
 				hexColor: '#FFF',
 				rgbColor: ''
 			},
 			vague: {
-				title: 'VagueTitle',
+				title: 'White',
 				hexColor: '#FFF',
 				colorCss: ''
 			},
 			rightmost: {
-				title: 'RightmostTitle',
+				title: 'White',
 				colorCss: '',
 				rgbColor: ''
 			}

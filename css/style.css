@@ -72,13 +72,6 @@
 	font-size: 125%;
 }
 
-/*.result-color,
-.result-direct-color,
-.result-vague-color {
-	height: 5em;
-	width: 5em;
-}*/
-
 .result-vague-color {
 	animation-direction: alternate;
 	animation-duration: 1s;
@@ -88,12 +81,7 @@
 
 .color-table {
 	width: 100%;
-	/*width: 400px;*/
 }
-
-/*.color-table td {
-	width: 50%;
-}*/
 
 .color-table td:first-child,
 .color-table td:last-child {

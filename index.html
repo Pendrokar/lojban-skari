@@ -152,7 +152,17 @@
 			</tr>
 			<tr>
 				<td colspan="5">
-					<a href="#" class="label color button badge {{ color.colorCss }}" ng-click="colorMix.append(this)" data-color="{{ color.colorCss }}" data-color-hex="{{ color.colorHex }}" title="{{ color.title }}" ng-repeat="color in colorMix.colors">{{ color.lojbanText }}</a>
+					<span
+						ng-repeat="color in colorMix.colors"
+					><br ng-if="color.newline"
+					/><a
+						href="#"
+						class="label color button badge {{ color.colorCss }}"
+						data-color="{{ color.colorCss }}"
+						data-color-hex="{{ color.colorHex }}"
+						title="{{ color.title }}"
+						ng-click="colorMix.append(this)"
+					>{{ color.lojbanText }}</a></span>
 				</td>
 			</tr>
 			<tr>
@@ -160,7 +170,16 @@
 			</tr>
 			<tr>
 				<td colspan="5" class="tanru">
-					<a href="#" class="label color button badge {{ color.colorCss }}" ng-click="colorMix.remove(this)" data-color="{{ color.colorCss }}" data-color-hex="{{ color.colorHex }}" title="{{ color.title }}" ng-repeat="color in colorMix.tanru track by $index">{{ color.lojbanText }}</a>
+					<span
+						ng-repeat="color in colorMix.tanru track by $index"
+					><a
+						href="#"
+						class="label color button badge {{ color.colorCss }}"
+						ng-click="colorMix.remove(this)"
+						data-color="{{ color.colorCss }}"
+						data-color-hex="{{ color.colorHex }}"
+						title="{{ color.title }}"
+					>{{ color.lojbanText }}</a><span ng-if="!$last">=&gt;</span></span>
 				</td>
 			</tr>
 			<tr>
